@@ -1,51 +1,78 @@
 (function () {
 'use strict';
 
-angular.module('LunchCheck', [])
-.controller('LunchCheckController', LunchCheckController);
+angular.module('ShoppingListCheckOff', [])
+ .controller('ToBuyController', ToBuyController)
+ .controller('AlreadyBoughtController', AlreadyBoughtController)
+ .service('ShoppingListCheckOffService',ShoppingListCheckOffService);
 
-  LunchCheckController.$inject = ['$scope'];
+ ToBuyController.$inject = ['ShoppingListCheckOffService'];
+ function ToBuyController(ShoppingListCheckOffService) {
+  var buyList = this;
 
-  function LunchCheckController($scope) {
-  $scope.input = "";
-  $scope.output = "";
+  buyList.items = ShoppingListCheckOffService.getBuyList();
 
-  $scope.updateOutput = function () {
-    var outputMessage = getValidationMessage();
-    $scope.output = outputMessage;
+  buyList.boughtButton = function (itemIndex) {
+    ShoppingListCheckOffService.changeItemFromBuyListToBoughtList(itemIndex);
   };
 
-  function getValidationMessage() {
-    var input = $scope.input;
-    var splittedInput = input.split([`,`]);
-    var resultMessage = "";
-    var inputIsEmpty = false;
-
-    if(splittedInput.length == 1){
-      inputIsEmpty = checkIfInputIsEmpty(splittedInput);
-    }
-
-    if(splittedInput.length <= 3 && !inputIsEmpty) {
-      resultMessage = "Enjoy!"
-    }
-    else {
-      resultMessage = "Please enter data first!"
-    }
-
-    if(splittedInput.length > 3) {
-      resultMessage = "Too much!"
-    }
-
-    return resultMessage;
   }
 
-  function checkIfInputIsEmpty(string) {
-        if(string[0] == "") {
-          return true;
-        }
-    return false;
+  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+ function AlreadyBoughtController(ShoppingListCheckOffService) {
+  var boughtList = this;
+
+  boughtList.items = ShoppingListCheckOffService.getBoughtList();
+
   }
-  
-};
+
+ function ShoppingListCheckOffService() {
+  var service = this;
+
+  var buyListItems = [ 
+   {
+    itemName : "Cookies",
+    itemQuantity : "10"
+   },
+   {
+    itemName : "Sandwiches",
+    itemQuantity : "30" 
+   },
+   {
+    itemName : "Cake",
+    itemQuantity : "1" 
+   },
+   {
+    itemName : "Ice Creams",
+    itemQuantity : "5" 
+   },
+   {
+    itemName : "Pizzas",
+    itemQuantity : "22" 
+   },
+   {
+    itemName : "Coffees",
+    itemQuantity : "13" 
+   }
+  ];
+
+  var boughtListItems = [];
+
+  service.getBuyList = function () {
+    return buyListItems;
+  };
+
+  service.getBoughtList = function () {
+    return boughtListItems;
+  };
+
+  service.changeItemFromBuyListToBoughtList = function (itemIndex) {
+    var removedItem = buyListItems.splice(itemIndex, 1);
+    boughtListItems.push(removedItem[0]);
+    console.log(buyListItems);
+    console.log(buyListItems.length);
+  };
+
+}
 
 })();
