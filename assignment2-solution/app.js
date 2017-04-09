@@ -29,30 +29,30 @@ angular.module('ShoppingListCheckOff', [])
  function ShoppingListCheckOffService() {
   var service = this;
 
-  var buyListItems = [ 
+  var buyListItems = [
    {
     itemName : "Cookies",
     itemQuantity : "10"
    },
    {
     itemName : "Sandwiches",
-    itemQuantity : "30" 
+    itemQuantity : "30"
    },
    {
     itemName : "Cake",
-    itemQuantity : "1" 
+    itemQuantity : "1"
    },
    {
     itemName : "Ice Creams",
-    itemQuantity : "5" 
+    itemQuantity : "5"
    },
    {
     itemName : "Pizzas",
-    itemQuantity : "22" 
+    itemQuantity : "22"
    },
    {
     itemName : "Coffees",
-    itemQuantity : "13" 
+    itemQuantity : "13"
    }
   ];
 
@@ -69,8 +69,6 @@ angular.module('ShoppingListCheckOff', [])
   service.changeItemFromBuyListToBoughtList = function (itemIndex) {
     var removedItem = buyListItems.splice(itemIndex, 1);
     boughtListItems.push(removedItem[0]);
-    console.log(buyListItems);
-    console.log(buyListItems.length);
   };
 
 }
