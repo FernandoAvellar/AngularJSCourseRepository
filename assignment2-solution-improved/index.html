@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="ShoppingListCheckOff">
   <head>
-    <title>Shopping List Check Off</title>
+    <title>Lista de compras</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <style>
@@ -29,46 +29,43 @@
   </head>
 <body>
   <div class="container">
-  <h1>Shopping List Check Off</h1>
-
+  <h1>Lista de compras</h1>
   <div class="row">
-
-    <!-- To Buy List -->
+    <!-- Lista de compras-->
     <div class="col-md-6" ng-controller='ToBuyController as buyList'>
-     <h2>To Buy:</h2>
+     <h2>Para comprar:</h2>
      <ul>
        <li ng-repeat="item in buyList.items">
-         Buy {{item.itemQuantity}} {{item.itemName}}.
-       <button class="btn btn-default" ng-click="buyList.boughtButton($index);"><span class="glyphicon glyphicon-ok"></span> Bought</button>
-       <button class="btn btn-danger" ng-click="buyList.deleteButton($index);"><span class="glyphicon glyphicon-delete"></span> Delete</button>
+         {{item.itemQuantity}} {{item.itemName}}.
+       <button class="btn btn-default" ng-click="buyList.boughtButton($index);"><span class="glyphicon glyphicon-ok"></span> OK</button>
+       <button class="btn btn-danger" ng-click="buyList.deleteButton($index);"><span class="glyphicon glyphicon-delete"></span> Apagar</button>
        </li>
      </ul>
-     <div class="emptyMessage" ng-if=!buyList.items.length != 0>Everything is bought!</div>
+     <div class="emptyMessage" ng-if=!buyList.items.length != 0>Toda à lista já foi comprada!</div>
      <div>
-       <h3>Add a new Item:</h2>
+       <h3>Adicionar um novo item:</h2>
          <div class="input-group">
-           <span class="input-group-addon" id="basic-addon1">Item Quantity</span>
-           <input ng-model="buyList.newItemQuantity"  type="text" class="form-control" placeholder="Type New Item Quantity" aria-describedby="basic-addon1">
+           <span class="input-group-addon" id="basic-addon1">Quantidade: </span>
+           <input ng-model="buyList.newItemQuantity"  type="text" class="form-control" placeholder="Digite a quantidade do novo produto" aria-describedby="basic-addon1">
          </div>
          <div class="input-group">
-           <span class="input-group-addon" id="basic-addon1">Item Name</span>
-           <input ng-model="buyList.newItemName"  type="text" class="form-control" placeholder="Type new Item Name" aria-describedby="basic-addon1">
+           <span class="input-group-addon" id="basic-addon1">Nome do produto: </span>
+           <input ng-model="buyList.newItemName"  type="text" class="form-control" placeholder="Digite o nome do novo produto" aria-describedby="basic-addon1">
          </div>
          <button ng-click="buyList.addButton();"  type="button" class="btn btn-primary btn-lg btn-block">Insert new Item </button>
      </div>
     </div>
-    <!-- Already Bought List -->
+    <!-- Lista dos produtos já comprados-->
     <div class="col-md-6" ng-controller='AlreadyBoughtController as boughtList'>
-     <h2>Already Bought:</h2>
+     <h2>Já comprado:</h2>
      <ul>
        <li ng-repeat="item in boughtList.items">
-          Bought {{item.itemQuantity}} {{item.itemName}}.
+          Comprei {{item.itemQuantity}} {{item.itemName}}.
        </li>
      </ul>
-     <div class="emptyMessage" ng-if=!boughtList.items.length != 0>Nothing bought yet.</div>
+     <div class="emptyMessage" ng-if=!boughtList.items.length != 0>Ainda nada foi comprado.</div>
     </div>
   </div>
-
 </div>
 
 </body>

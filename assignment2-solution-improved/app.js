@@ -42,29 +42,25 @@ angular.module('ShoppingListCheckOff', [])
 
   var buyListItems = [
    {
-    itemName : "Cookies",
-    itemQuantity : "10"
+    itemName : "bolacha maizena",
+    itemQuantity : "10 pacotes de"
    },
    {
-    itemName : "Sandwiches",
-    itemQuantity : "30"
+    itemName : "presunto",
+    itemQuantity : "300 gramas de"
    },
    {
-    itemName : "Cake",
-    itemQuantity : "1"
+    itemName : "café",
+    itemQuantity : "2 pacotes de"
    },
    {
-    itemName : "Ice Creams",
-    itemQuantity : "5"
+    itemName : "sorvete",
+    itemQuantity : "1 pote de"
    },
    {
-    itemName : "Pizzas",
-    itemQuantity : "22"
+    itemName : "pizzas congeladas",
+    itemQuantity : "3"
    },
-   {
-    itemName : "Coffees",
-    itemQuantity : "13"
-   }
   ];
 
   var boughtListItems = [];
