@@ -25,6 +25,8 @@ angular.module('ShoppingListCheckOff', [])
 
   buyList.addButton = function () {
     ShoppingListCheckOffService.addToBuyList(buyList.newItemName, buyList.newItemQuantity);
+    buyList.newItemName = "";
+    buyList.newItemQuantity = "";
   };
 
   }
@@ -40,12 +42,12 @@ angular.module('ShoppingListCheckOff', [])
  function ShoppingListCheckOffService() {
   var service = this;
 
-  var buyListItems = 
+  var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
     { itemName : "presunto", itemQuantity : "300 gramas" },
     { itemName : "café", itemQuantity : "2 pacotes" },
     { itemName : "sorvete", itemQuantity : "1 pote" },
-    { itemName : "pizza congelada", itemQuantity : "3 unidades" } ];
+    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];
 
   var boughtListItems = [];
 
