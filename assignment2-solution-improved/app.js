@@ -4,14 +4,15 @@
 angular.module('ShoppingListCheckOff', [])
  .controller('ToBuyController', ToBuyController)
  .controller('AlreadyBoughtController', AlreadyBoughtController)
+ .controller('NewItemController', NewItemController)
  .service('ShoppingListCheckOffService',ShoppingListCheckOffService);
 
+ ////////////////////////////////////////////////////////////////////////////
+ // ToBuyController Controller //
+ ////////////////////////////////////////////////////////////////////////////
  ToBuyController.$inject = ['ShoppingListCheckOffService'];
  function ToBuyController(ShoppingListCheckOffService) {
   var buyList = this;
-
-  buyList.newItemName = "";
-  buyList.newItemQuantity = "";
 
   buyList.items = ShoppingListCheckOffService.getBuyList();
 
@@ -22,15 +23,11 @@ angular.module('ShoppingListCheckOff', [])
   buyList.deleteButton = function (itemIndex) {
     ShoppingListCheckOffService.deleteItemFromBuyList(itemIndex);
   };
-
-  buyList.addButton = function () {
-    ShoppingListCheckOffService.addToBuyList(buyList.newItemName, buyList.newItemQuantity);
-    buyList.newItemName = "";
-    buyList.newItemQuantity = "";
-  };
-
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  // AlreadyBoughtController Controller //
+  ////////////////////////////////////////////////////////////////////////////
   AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
  function AlreadyBoughtController(ShoppingListCheckOffService) {
   var boughtList = this;
@@ -39,6 +36,27 @@ angular.module('ShoppingListCheckOff', [])
 
   }
 
+ ////////////////////////////////////////////////////////////////////////////
+ // NewItem Controller //
+ ////////////////////////////////////////////////////////////////////////////
+  NewItemController.$inject = ['ShoppingListCheckOffService'];
+  function NewItemController(ShoppingListCheckOffService) {
+    var newItem = this;
+
+    newItem.newItemName = "";
+    newItem.newItemQuantity = "";
+
+    newItem.addButton = function () {
+      ShoppingListCheckOffService.addToBuyList(newItem.newItemName, newItem.newItemQuantity);
+      newItem.newItemName = "";
+      newItem.newItemQuantity = "";
+    };
+  }
+
+
+  ////////////////////////////////////////////////////////////////////////////
+  // Service ShoppingListCheckOffService//
+  ////////////////////////////////////////////////////////////////////////////
  function ShoppingListCheckOffService() {
   var service = this;
 
@@ -74,7 +92,6 @@ angular.module('ShoppingListCheckOff', [])
         itemName : newItemName,
         itemQuantity : newItemQuantity
       };
-
     buyListItems.push(newItem);
   }
 

@@ -37,7 +37,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
 
         <!-- Lista dos produtos comprados-->
@@ -63,23 +62,20 @@
                     <h2>Adicionar um novo item<span class="glyphicon glyphicon-pencil iconPencil" aria-hidden="true"></span></h2>
                 </div>
 
-                <div class="inserir" ng-controller="ToBuyController as buyList">
+                <div class="inserir" ng-controller="NewItemController as newItem">
                     <div class="input-group">
                         <span class="input-group-addon">Nome:</span>
-                        <input ng-model="buyList.newItemName"  type="text" class="form-control" placeholder="Digite o nome do produto" aria-describedby="basic-addon1" maxlength="25" value="">
+                        <input ng-model="newItem.newItemName"  type="text" class="form-control" placeholder="Digite o nome do produto" aria-describedby="basic-addon1" maxlength="25" value="">
                      </div>
 
                     <div class="input-group">
                         <span class="input-group-addon">Quantidade: </span>
-                        <input ng-model="buyList.newItemQuantity"  type="text" class="form-control" placeholder="Digite a quantidade do produto" aria-describedby="basic-addon1" maxlength="15" value="0">
+                        <input ng-model="newItem.newItemQuantity"  type="text" class="form-control" placeholder="Digite a quantidade do produto" aria-describedby="basic-addon1" maxlength="15" value="0">
                     </div>
-
-
-
-                    <button ng-click="buyList.addButton();"  type="button" class="btn btn-primary btn-lg btn-block">INSERIR</button>
+                    
+                    <button ng-click="newItem.addButton();"  type="button" class="btn btn-primary btn-lg btn-block">INSERIR</button>
 
                 </div>
-
             </div>
 
     </div>

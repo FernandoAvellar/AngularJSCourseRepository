@@ -88,6 +88,10 @@ div.input-group {
     margin-bottom: 10px;
 }
 
+.novoItem {
+  clear: both;
+}
+
 @media (max-width: 992px){
     .list{
         margin-bottom: 50px;
