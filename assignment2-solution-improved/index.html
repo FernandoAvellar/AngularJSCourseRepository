@@ -33,6 +33,8 @@
                             <td><button ng-click="buyList.boughtButton($index);">Comprado</button></td>
 
                             <td><button class="btn btn-danger" ng-click="buyList.deleteButton($index);"><span class="glyphicon glyphicon-delete"></span> Apagar</button></td>
+
+                            <td><button ng-click="buyList.editButton($index);">Editar</button></td>
                         </tr>
                     </table>
                 </div>
@@ -43,7 +45,7 @@
         <div ng-controller="AlreadyBoughtController as boughtList">
             <div class="col-md-6">
                 <div class="list">
-                   <h2>COMPRADOS</h2>
+                   <h2>COMPRADO</h2>
                    <hr>
                     <div ng-if="boughtList.items.length === 0">
                         <p>Nada ainda foi comprado!</p>
@@ -59,7 +61,7 @@
 
             <div class="novoItem">
                 <div class="col-md-12">
-                    <h2>Adicionar um novo item<span class="glyphicon glyphicon-pencil iconPencil" aria-hidden="true"></span></h2>
+                    <h2>Adicionar ou Editar um item<span class="glyphicon glyphicon-pencil iconPencil" aria-hidden="true"></span></h2>
                 </div>
 
                 <div class="inserir" ng-controller="NewItemController as newItem">
@@ -69,10 +71,10 @@
                      </div>
 
                     <div class="input-group">
-                        <span class="input-group-addon">Quantidade: </span>
+                        <span name="qtdeInput" class="input-group-addon">Quantidade: </span>
                         <input ng-model="newItem.newItemQuantity"  type="text" class="form-control" placeholder="Digite a quantidade do produto" aria-describedby="basic-addon1" maxlength="15" value="0">
                     </div>
-                    
+
                     <button ng-click="newItem.addButton();"  type="button" class="btn btn-primary btn-lg btn-block">INSERIR</button>
 
                 </div>

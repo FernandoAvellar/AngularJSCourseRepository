@@ -8,25 +8,31 @@ angular.module('ShoppingListCheckOff', [])
  .service('ShoppingListCheckOffService',ShoppingListCheckOffService);
 
  ////////////////////////////////////////////////////////////////////////////
- // ToBuyController Controller //
+ // ToBuyController  //
  ////////////////////////////////////////////////////////////////////////////
  ToBuyController.$inject = ['ShoppingListCheckOffService'];
  function ToBuyController(ShoppingListCheckOffService) {
+
   var buyList = this;
 
   buyList.items = ShoppingListCheckOffService.getBuyList();
 
   buyList.boughtButton = function (itemIndex) {
-    ShoppingListCheckOffService.changeItemFromBuyListToBoughtList(itemIndex);
+      ShoppingListCheckOffService.changeItemFromBuyListToBoughtList(itemIndex);
   };
 
   buyList.deleteButton = function (itemIndex) {
-    ShoppingListCheckOffService.deleteItemFromBuyList(itemIndex);
+      ShoppingListCheckOffService.deleteItemFromBuyList(itemIndex);
   };
+
+  buyList.editButton = function (itemIndex) {
+      ShoppingListCheckOffService.returnSelectedItemToNewItemInput(itemIndex);
+  };
+
   }
 
   ////////////////////////////////////////////////////////////////////////////
-  // AlreadyBoughtController Controller //
+  // AlreadyBoughtController  //
   ////////////////////////////////////////////////////////////////////////////
   AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
  function AlreadyBoughtController(ShoppingListCheckOffService) {
@@ -37,17 +43,22 @@ angular.module('ShoppingListCheckOff', [])
   }
 
  ////////////////////////////////////////////////////////////////////////////
- // NewItem Controller //
+ // NewItemController //
  ////////////////////////////////////////////////////////////////////////////
   NewItemController.$inject = ['ShoppingListCheckOffService'];
   function NewItemController(ShoppingListCheckOffService) {
     var newItem = this;
 
-    newItem.newItemName = "";
-    newItem.newItemQuantity = "";
+    newItem.newItemName = ShoppingListCheckOffService.getNewItemContent().itemName;
+    newItem.newItemQuantity = ShoppingListCheckOffService.getNewItemContent().itemQuantity;
 
     newItem.addButton = function () {
-      ShoppingListCheckOffService.addToBuyList(newItem.newItemName, newItem.newItemQuantity);
+
+    ShoppingListCheckOffService.addToBuyList(newItem.newItemName, newItem.newItemQuantity);
+      clearNewItemView();
+    };
+
+    function clearNewItemView() {
       newItem.newItemName = "";
       newItem.newItemQuantity = "";
     };
@@ -69,6 +80,8 @@ angular.module('ShoppingListCheckOff', [])
 
   var boughtListItems = [];
 
+  var newItemContent = {itemName : "", itemQuantity: ""};
+
   service.getBuyList = function () {
     return buyListItems;
   };
@@ -76,6 +89,10 @@ angular.module('ShoppingListCheckOff', [])
   service.getBoughtList = function () {
     return boughtListItems;
   };
+
+  service.getNewItemContent = function () {
+    return newItemContent;
+  }
 
   service.changeItemFromBuyListToBoughtList = function (itemIndex) {
     var removedItem = buyListItems.splice(itemIndex, 1);
@@ -93,6 +110,12 @@ angular.module('ShoppingListCheckOff', [])
         itemQuantity : newItemQuantity
       };
     buyListItems.push(newItem);
+  }
+
+  service.returnSelectedItemToNewItemInput = function (itemIndex) {
+    var editItem = buyListItems.splice(itemIndex, 1)[0];
+    newItemContent = {itemName : editItem.itemName, itemQuantity: editItem.itemQuantity};
+    console.log(newItemContent);
   }
 
 }
