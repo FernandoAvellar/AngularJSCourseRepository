@@ -40,6 +40,10 @@ angular.module('ShoppingListCheckOff', [])
 
   boughtList.items = ShoppingListCheckOffService.getBoughtList();
 
+  boughtList.returnToBuyListButton = function (itemIndex) {
+    ShoppingListCheckOffService.returnSelectedItemToBuyList(itemIndex);
+  };
+
   }
 
  ////////////////////////////////////////////////////////////////////////////
@@ -53,7 +57,6 @@ angular.module('ShoppingListCheckOff', [])
     newItem.newItemQuantity = ShoppingListCheckOffService.getNewItemContent().itemQuantity;
 
     newItem.addButton = function () {
-
     ShoppingListCheckOffService.addToBuyList(newItem.newItemName, newItem.newItemQuantity);
       clearNewItemView();
     };
@@ -116,6 +119,11 @@ angular.module('ShoppingListCheckOff', [])
     var editItem = buyListItems.splice(itemIndex, 1)[0];
     newItemContent = {itemName : editItem.itemName, itemQuantity: editItem.itemQuantity};
     console.log(newItemContent);
+  }
+
+  service.returnSelectedItemToBuyList = function (itemIndex) {
+    var returnedItem = boughtListItems.splice(itemIndex, 1);
+    buyListItems.push(returnedItem[0]);
   }
 
 }

@@ -53,6 +53,7 @@
                     <table>
                         <tr ng-repeat="item in boughtList.items">
                             <td><span class="quantity">{{item.itemQuantity}}</span> de {{item.itemName}}.</td>
+                            <td><button ng-click="boughtList.returnToBuyListButton($index);">Retornar</button></td>
                         </tr>
                     </table>
                 </div>
