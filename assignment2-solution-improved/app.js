@@ -5,10 +5,10 @@ angular.module('ShoppingListCheckOff', [])
  .controller('ToBuyController', ToBuyController)
  .controller('AlreadyBoughtController', AlreadyBoughtController)
  .controller('NewItemController', NewItemController)
- .service('ShoppingListCheckOffService',ShoppingListCheckOffService);
+ .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
  ////////////////////////////////////////////////////////////////////////////
- // ToBuyController  //
+ // ToBuy Controller  //
  ////////////////////////////////////////////////////////////////////////////
  ToBuyController.$inject = ['ShoppingListCheckOffService'];
  function ToBuyController(ShoppingListCheckOffService) {
@@ -32,7 +32,7 @@ angular.module('ShoppingListCheckOff', [])
   }
 
   ////////////////////////////////////////////////////////////////////////////
-  // AlreadyBoughtController  //
+  // AlreadyBought Controller  //
   ////////////////////////////////////////////////////////////////////////////
   AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
  function AlreadyBoughtController(ShoppingListCheckOffService) {
@@ -47,10 +47,10 @@ angular.module('ShoppingListCheckOff', [])
   }
 
  ////////////////////////////////////////////////////////////////////////////
- // NewItemController //
+ // NewItem Controller //
  ////////////////////////////////////////////////////////////////////////////
-  NewItemController.$inject = ['ShoppingListCheckOffService'];
-  function NewItemController(ShoppingListCheckOffService) {
+  NewItemController.$inject = ['ShoppingListCheckOffService', '$rootScope'];
+  function NewItemController(ShoppingListCheckOffService, $rootScope) {
     var newItem = this;
 
     newItem.newItemName = ShoppingListCheckOffService.getNewItemContent().itemName;
@@ -65,13 +65,19 @@ angular.module('ShoppingListCheckOff', [])
       newItem.newItemName = "";
       newItem.newItemQuantity = "";
     };
+
+    $rootScope.$on('refreshInputFields', function() {
+      newItem.newItemName = ShoppingListCheckOffService.getNewItemContent().itemName;
+      newItem.newItemQuantity = ShoppingListCheckOffService.getNewItemContent().itemQuantity;
+    });
+
   }
 
 
   ////////////////////////////////////////////////////////////////////////////
   // Service ShoppingListCheckOffService//
   ////////////////////////////////////////////////////////////////////////////
- function ShoppingListCheckOffService() {
+ function ShoppingListCheckOffService($rootScope) {
   var service = this;
 
   var buyListItems =
@@ -118,6 +124,7 @@ angular.module('ShoppingListCheckOff', [])
   service.returnSelectedItemToNewItemInput = function (itemIndex) {
     var editItem = buyListItems.splice(itemIndex, 1)[0];
     newItemContent = {itemName : editItem.itemName, itemQuantity: editItem.itemQuantity};
+    $rootScope.$broadcast('refreshInputFields');
     console.log(newItemContent);
   }
 
