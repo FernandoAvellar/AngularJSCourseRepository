@@ -53,23 +53,26 @@ angular.module('ShoppingListCheckOff', [])
   function NewItemController(ShoppingListCheckOffService, $rootScope) {
     var newItem = this;
 
-    newItem.newItemName = ShoppingListCheckOffService.getNewItemContent().itemName;
-    newItem.newItemQuantity = ShoppingListCheckOffService.getNewItemContent().itemQuantity;
+    refreshInputFields();
 
     newItem.addButton = function () {
     ShoppingListCheckOffService.addToBuyList(newItem.newItemName, newItem.newItemQuantity);
       clearNewItemView();
     };
 
+    $rootScope.$on('refreshInputFields', function() {
+      refreshInputFields();
+    });
+
     function clearNewItemView() {
       newItem.newItemName = "";
       newItem.newItemQuantity = "";
     };
 
-    $rootScope.$on('refreshInputFields', function() {
+    function refreshInputFields() {
       newItem.newItemName = ShoppingListCheckOffService.getNewItemContent().itemName;
       newItem.newItemQuantity = ShoppingListCheckOffService.getNewItemContent().itemQuantity;
-    });
+    };
 
   }
 
@@ -125,7 +128,6 @@ angular.module('ShoppingListCheckOff', [])
     var editItem = buyListItems.splice(itemIndex, 1)[0];
     newItemContent = {itemName : editItem.itemName, itemQuantity: editItem.itemQuantity};
     $rootScope.$broadcast('refreshInputFields');
-    console.log(newItemContent);
   }
 
   service.returnSelectedItemToBuyList = function (itemIndex) {
