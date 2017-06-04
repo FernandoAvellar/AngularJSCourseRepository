@@ -80,6 +80,11 @@ angular.module('ShoppingListCheckOff', [])
  function ShoppingListCheckOffService($rootScope) {
   var service = this;
 
+  // Get a reference to the database service
+  var databaseRef = firebase.database().ref();
+  databaseRef.child("bolacha maizena").set("10 pacotes");
+  databaseRef.child("presunto").set("300 gramas");
+
   var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
     { itemName : "presunto", itemQuantity : "300 gramas" },

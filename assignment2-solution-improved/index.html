@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/general.css">
-    <script src="angular.min.js"></script>
-    <script src="app.js"> </script>
   </head>
 <body>
     <div class="container">
@@ -83,5 +81,23 @@
 
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDdLrbJvwZAPxBZJP2T2ye7bdN_p5jSkkE",
+            authDomain: "lista-de-compras-7a852.firebaseapp.com",
+            databaseURL: "https://lista-de-compras-7a852.firebaseio.com",
+            projectId: "lista-de-compras-7a852",
+            storageBucket: "lista-de-compras-7a852.appspot.com",
+            messagingSenderId: "162387810086"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <script src="angular.min.js"></script>
+    
+    <script src="app.js"> </script>
 </body>
 </html>
