@@ -82,8 +82,20 @@ angular.module('ShoppingListCheckOff', [])
 
   // Get a reference to the database service
   var databaseRef = firebase.database().ref();
-  databaseRef.child("bolacha maizena").set("10 pacotes");
-  databaseRef.child("presunto").set("300 gramas");
+  databaseRef.child("buyList").set({
+    itemName: "bolacha maizena",
+    itemQuantity: "10 pacotes",
+  });
+
+  databaseRef.push().set({
+    itemName: "presunto",
+    itemQuantity: "300 gramas",
+  });
+
+  databaseRef.push().set({
+    itemName: "queijo",
+    itemQuantity: "100 gramas",
+  });
 
   var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
