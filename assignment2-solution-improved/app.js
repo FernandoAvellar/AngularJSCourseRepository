@@ -79,36 +79,15 @@ angular.module('ShoppingListCheckOff', [])
   ////////////////////////////////////////////////////////////////////////////
  function ShoppingListCheckOffService($rootScope) {
   var service = this;
-  
-  /*var buyListItems =
-  [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
-    { itemName : "presunto", itemQuantity : "300 gramas" },
-    { itemName : "café", itemQuantity : "2 pacotes" },
-    { itemName : "sorvete", itemQuantity : "1 pote" },
-    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];*/
 
-  var buyListItems = retrieveAllDataFromDatabase();
-
-  function retrieveAllDataFromDatabase() {
-    var finalBuyListItems = [];
-    var databaseKeyRef = firebase.database().ref().child("buyListItems");
-
-    databaseKeyRef.on('child_added', snapshot => {
-      var dataItem = snapshot.val();
-      console.log(dataItem);
-      finalBuyListItems.push(dataItem);       
-    });
-    console.log(finalBuyListItems);
-    return finalBuyListItems;
-  }
-
-  
+  var buyListItems = [];
 
   var boughtListItems = [];
 
   var newItemContent = {itemName : "", itemQuantity: ""};
 
   service.getBuyList = function () {
+    retrieveAllDataFromDatabase();  
     return buyListItems;
   };
 
@@ -126,17 +105,10 @@ angular.module('ShoppingListCheckOff', [])
   };
 
   service.deleteItemFromBuyList = function (itemIndex) {
-    buyListItems.splice(itemIndex, 1);
+    console.log(buyListItems.splice(itemIndex, 1));
   }
 
   service.addToBuyList = function (newItemName, newItemQuantity) {
-    /*var newItem =
-      {
-        itemName : newItemName,
-        itemQuantity : newItemQuantity
-      };
-    buyListItems.push(newItem);*/
-
     saveItemToDatabase(newItemName, newItemQuantity);
   }
 
@@ -162,6 +134,27 @@ angular.module('ShoppingListCheckOff', [])
     itemQuantity: quantity,
     });
   }
+
+    function retrieveAllDataFromDatabase() {
+    var databaseKeyRef = firebase.database().ref().child("buyListItems");
+
+    databaseKeyRef.on('value', snapshot => {
+      snapshot.forEach(function(childSnapshot) {
+        buyListItems.push(childSnapshot.val()); 
+      })      
+    });
+  }
+
+  /*function retrieveAllDataFromDatabase() {
+    var finalBuyListItems = [];
+    var databaseKeyRef = firebase.database().ref().child("buyListItems");
+
+    databaseKeyRef.on('child_added', snapshot => {
+      var dataItem = snapshot.val();
+      finalBuyListItems.push(dataItem);       
+    });
+    return finalBuyListItems;
+  }*/
 
 }
 
