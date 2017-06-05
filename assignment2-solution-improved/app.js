@@ -79,30 +79,30 @@ angular.module('ShoppingListCheckOff', [])
   ////////////////////////////////////////////////////////////////////////////
  function ShoppingListCheckOffService($rootScope) {
   var service = this;
-
-  // Get a reference to the database service
-  var databaseRef = firebase.database().ref();
-  databaseRef.child("buyList").set({
-    itemName: "bolacha maizena",
-    itemQuantity: "10 pacotes",
-  });
-
-  databaseRef.push().set({
-    itemName: "presunto",
-    itemQuantity: "300 gramas",
-  });
-
-  databaseRef.push().set({
-    itemName: "queijo",
-    itemQuantity: "100 gramas",
-  });
-
-  var buyListItems =
+  
+  /*var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
     { itemName : "presunto", itemQuantity : "300 gramas" },
     { itemName : "café", itemQuantity : "2 pacotes" },
     { itemName : "sorvete", itemQuantity : "1 pote" },
-    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];
+    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];*/
+
+  var buyListItems = retrieveAllDataFromDatabase();
+
+  function retrieveAllDataFromDatabase() {
+    var finalBuyListItems = [];
+    var databaseKeyRef = firebase.database().ref().child("buyListItems");
+
+    databaseKeyRef.on('child_added', snapshot => {
+      var dataItem = snapshot.val();
+      console.log(dataItem);
+      finalBuyListItems.push(dataItem);       
+    });
+    console.log(finalBuyListItems);
+    return finalBuyListItems;
+  }
+
+  
 
   var boughtListItems = [];
 
@@ -130,24 +130,37 @@ angular.module('ShoppingListCheckOff', [])
   }
 
   service.addToBuyList = function (newItemName, newItemQuantity) {
-    var newItem =
+    /*var newItem =
       {
         itemName : newItemName,
         itemQuantity : newItemQuantity
       };
-    buyListItems.push(newItem);
+    buyListItems.push(newItem);*/
+
+    saveItemToDatabase(newItemName, newItemQuantity);
   }
 
   service.returnSelectedItemToNewItemInput = function (itemIndex) {
     var editItem = buyListItems.splice(itemIndex, 1)[0];
     newItemContent = {itemName : editItem.itemName, itemQuantity: editItem.itemQuantity};
     $rootScope.$broadcast('refreshInputFields');
-    console.log(newItemContent);
   }
 
   service.returnSelectedItemToBuyList = function (itemIndex) {
     var returnedItem = boughtListItems.splice(itemIndex, 1);
     buyListItems.push(returnedItem[0]);
+  }
+
+  function saveItemToDatabase(name, quantity) {
+    // Get a new reference to the database service
+    var databaseRef = firebase.database().ref().child("buyListItems");
+    //Push Reference to create a new instant id for each new product inside buyListItems
+    var databaseRefPush = databaseRef.push();
+
+    databaseRefPush.set({
+    itemName: name,
+    itemQuantity: quantity,
+    });
   }
 
 }
