@@ -138,7 +138,7 @@ angular.module('ShoppingListCheckOff', [])
     function retrieveAllDataFromDatabase() {
     var databaseKeyRef = firebase.database().ref().child("buyListItems");
 
-    databaseKeyRef.on('value', snapshot => {
+    databaseKeyRef.once('value', snapshot => {
       snapshot.forEach(function(childSnapshot) {
         buyListItems.push(childSnapshot.val()); 
       })      
