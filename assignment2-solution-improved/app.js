@@ -77,15 +77,42 @@ angular.module('ShoppingListCheckOff', [])
   ////////////////////////////////////////////////////////////////////////////
   // Service ShoppingListCheckOffService//
   ////////////////////////////////////////////////////////////////////////////
- function ShoppingListCheckOffService($rootScope) {
+ function ShoppingListCheckOffService($rootScope, $http) {
   var service = this;
 
-  var buyListItems =
+  /*var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
     { itemName : "presunto", itemQuantity : "300 gramas" },
     { itemName : "café", itemQuantity : "2 pacotes" },
     { itemName : "sorvete", itemQuantity : "1 pote" },
-    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];
+    { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];*/
+
+  var sheetsu = "https://sheetsu.com/apis/v1.0/69b3afa56d37/";
+
+  var buyListItems = sheetsu;
+
+  console.log(buyListItems);
+
+
+/* var promise = retrieveAllDataFromDatasheet();
+
+  promise.then(function (response) {
+      buyListItems = response.data;
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  };*/
+
+
+   /*function retrieveAllDataFromDatasheet() {
+    var response = $http({
+      method: "GET",
+      url: "https://sheetsu.com/apis/v1.0/69b3afa56d37/"
+    });
+    return response;
+   }*/
 
   var boughtListItems = [];
 
