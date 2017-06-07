@@ -86,7 +86,7 @@ angular.module('ShoppingListCheckOff', [])
   var buyListItems =
   [ { itemName : "bolacha maizena", itemQuantity : "10 pacotes" },
     { itemName : "presunto", itemQuantity : "300 gramas" },
-    { itemName : "café", itemQuantity : "2 pacotes" },
+    { itemName : "cafe", itemQuantity : "2 pacotes" },
     { itemName : "sorvete", itemQuantity : "1 pote" },
     { itemName : "pizza congelada", itemQuantity : "3 caixas" } ];
 
